@@ -12,14 +12,28 @@ var Item = Backbone.Model.extend({
 
   toggle: function () {
     this.save({ complete: !this.get('complete') });
-    console.log(this.get('complete'))
   }
 });
 
 var ItemsList = Backbone.Collection.extend({
   model: Item,
   localStorage: new Backbone.LocalStorage('enhanced-backbone-todo'),
-  comparator: 'created'
+  
+  comparator: function (item1, item2) {
+    completed1 = item1.get('complete');
+    completed2 = item2.get('complete');
+    if (completed2 && !completed1) return -1;
+    if (completed1 && !completed2) return 1;
+    return 0;
+  },
+
+  getIncomplete: function () {
+    return this.where({ complete: false });
+  },
+
+  getCompleted: function () {
+    return this.where({ complete: true });
+  },
 });
 
 // Views
@@ -65,10 +79,20 @@ var AppView = Backbone.View.extend({
   initialize: function () {
     this.create$ = this.$('#new-todo');
 
-    this.listenTo(Items,'add', this.addOne);
-    this.listenTo(Items, 'reset', this.addAll);
+    items.fetch();
+    this.addAll();
 
-    Items.fetch();
+    this.listenTo(items,'add', this.addOneIncomplete);
+    this.listenTo(items, 'reset', this.addAll);
+  },
+
+  addOneIncomplete: function (item) {
+    var prev = this.$('#todo-list li:not(.completed)').last();
+    if (!prev) this.addOne(item);
+    else {
+      var view = new ItemView( { model: item });
+      prev.after(view.render().el);
+    }
   },
 
   addOne: function (item) {
@@ -77,20 +101,20 @@ var AppView = Backbone.View.extend({
   },
 
   addAll: function () {
-    Items.each(this.addOne, this);
+    items.each(this.addOne, this);
   },
 
   createOnEnter: function (e) {
     if(e.keyCode !== 13) return;
     if (!this.create$.val()) return;
-    Items.create({ title: this.create$.val() });
+    items.create({ title: this.create$.val() });
     this.create$.val('');
   }
 });
 
 // Finally create the data and the app
 
-var Items = new ItemsList();
-var App = new AppView();
+var items = new ItemsList();
+var app = new AppView();
 
 });
