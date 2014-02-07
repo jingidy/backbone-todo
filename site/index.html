@@ -14,17 +14,26 @@
       </header>
       <section id="main">
         <ul id="todo-list">
-          <li class="todo-item">
-            <button class="complete" name="mark as complete"></button>
-            <input class="text" type="text" value="buy some lactaid milk">
-            <button class="delete" name="delete">x</button>
-          </li>
-          <li class="todo-item completed">
-            <button class="complete" name="mark as complete"></button>
-            <input class="text" type="text" value="throw out spoiled eggs">
-            <button class="delete" name="delete">x</button>
-          </li>
         </ul>
     </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="underscore.js"></script>
+    <script src="backbone.js"></script>
+    <script src="backbone.localStorage.js"></script>
+    <script src="todo.js"></script>
+
+    <!-- Templates -->
+
+    <script type="text/template" id="item-template">
+      <div class="view todo-item">
+        <div <%= complete ? 'class="completed"' : '' %> >
+          <button class="complete" name="mark as complete"></button>
+          <input class="text" type="text" value="<%- title %>">
+          <button class="delete" name="delete">x</button>
+        </div>
+      </div>
+    </script>
+
   </body>
 </html>

@@ -4,7 +4,7 @@
 
 itemPadding = 20px
 lightBorderColor = rgba(0, 0, 0, 0.1)
-highlightBlueColor = #74D5FF
+highlightBlueColor = rgb(116, 213, 255)
 
 .defaultFont
   font-size 16px
@@ -17,8 +17,15 @@ highlightBlueColor = #74D5FF
 .uncheckedStyle
   background none
   border 1px solid highlightBlueColor
+.willCheckStyle
+  background-color rgba(116, 213, 255, 0.15)
+  border 1px solid highlightBlueColor
+
 .checkedStyle
   background-color highlightBlueColor
+  border 3px double white
+.willUncheckStyle
+  background-color rgba(116, 213, 255, 0.85)
   border 3px double white
 
 // Global style definition
@@ -89,6 +96,9 @@ header
     left 10px
     height sideLength
     width sideLength
+    cursor pointer
+    &:hover
+      @extend .willCheckStyle
     &:active
       @extend .checkedStyle
 
@@ -115,20 +125,19 @@ header
     font-size 1em
     color white
 
-    transition 0.1s 0
-    transition-property background-color, color
-    &:hover
-      transition-delay 0.1s
-
   &:hover .delete
     color red
     &:hover
+      background-color rgba(255, 0, 0, 0.1)
+    &:active
       background-color red
       color white
 
-  &.completed
+  .completed
     .complete
       @extend .checkedStyle
+      &:hover
+        @extend .willUncheckStyle
       &:active
         @extend .uncheckedStyle
     .text

@@ -12,14 +12,24 @@ header #title {
 }
 .uncheckedStyle,
 #todo-list .todo-item .complete,
-#todo-list .todo-item.completed .complete:active {
+#todo-list .todo-item .completed .complete:active {
   background: none;
+  border: 1px solid #74d5ff;
+}
+.willCheckStyle,
+#todo-list .todo-item .complete:hover {
+  background-color: rgba(116,213,255,0.15);
   border: 1px solid #74d5ff;
 }
 .checkedStyle,
 #todo-list .todo-item .complete:active,
-#todo-list .todo-item.completed .complete {
+#todo-list .todo-item .completed .complete {
   background-color: #74d5ff;
+  border: 3px double #fff;
+}
+.willUncheckStyle,
+#todo-list .todo-item .completed .complete:hover {
+  background-color: rgba(116,213,255,0.85);
   border: 3px double #fff;
 }
 html,
@@ -169,6 +179,7 @@ header #title {
   left: 10px;
   height: 26px;
   width: 26px;
+  cursor: pointer;
 }
 #todo-list .todo-item .text {
   padding-left: 56px;
@@ -189,36 +200,22 @@ header #title {
   background-color: transparent;
   font-size: 1em;
   color: #fff;
-  -webkit-transition: 0.1s 0;
-  -moz-transition: 0.1s 0;
-  -o-transition: 0.1s 0;
-  -ms-transition: 0.1s 0;
-  transition: 0.1s 0;
-  -webkit-transition-property: background-color, color;
-  -moz-transition-property: background-color, color;
-  -o-transition-property: background-color, color;
-  -ms-transition-property: background-color, color;
-  transition-property: background-color, color;
-}
-#todo-list .todo-item .delete:hover {
-  -webkit-transition-delay: 0.1s;
-  -moz-transition-delay: 0.1s;
-  -o-transition-delay: 0.1s;
-  -ms-transition-delay: 0.1s;
-  transition-delay: 0.1s;
 }
 #todo-list .todo-item:hover .delete {
   color: #f00;
 }
 #todo-list .todo-item:hover .delete:hover {
+  background-color: rgba(255,0,0,0.1);
+}
+#todo-list .todo-item:hover .delete:active {
   background-color: #f00;
   color: #fff;
 }
-#todo-list .todo-item.completed .text {
+#todo-list .todo-item .completed .text {
   color: rgba(0,0,0,0.25);
   text-decoration: line-through;
 }
-#todo-list .todo-item.completed .delete {
+#todo-list .todo-item .completed .delete {
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
