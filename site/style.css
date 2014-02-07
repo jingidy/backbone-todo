@@ -221,3 +221,12 @@ header #title {
   color: rgba(0,0,0,0.25);
   text-decoration: line-through;
 }
+#todo-list .todo-item.deleted {
+  height: 0px;
+  overflow: hidden;
+  -webkit-transition: height 0.25s ease-out;
+  -moz-transition: height 0.25s ease-out;
+  -o-transition: height 0.25s ease-out;
+  -ms-transition: height 0.25s ease-out;
+  transition: height 0.25s ease-out;
+}

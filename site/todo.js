@@ -83,7 +83,13 @@ var ItemView = Backbone.View.extend({
 
   toggleComplete: function () { this.model.toggle(); },
 
-  delete: function () { this.model.destroy(); },
+  delete: function () { 
+    this.$('.todo-item').addClass('deleted');
+    var that = this;
+    setTimeout(function () {
+      that.model.destroy();
+    }, 300);
+  },
 
   saveOnEndEdit: function (e) {
     if(e.keyCode !== 13 && e.keyCode !== 27)
