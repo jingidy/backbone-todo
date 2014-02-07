@@ -1,0 +1,139 @@
+@import 'nib'
+
+// Utility variables and clases
+
+itemPadding = 20px
+lightBorderColor = rgba(0, 0, 0, 0.1)
+highlightBlueColor = #74D5FF
+
+.defaultFont
+  font-size 16px
+  line-height 1.5em
+.headerFont
+  font-weight light
+  font-size 26px
+  line-height 1em
+
+.uncheckedStyle
+  background none
+  border 1px solid highlightBlueColor
+.checkedStyle
+  background-color highlightBlueColor
+  border 3px double white
+
+// Global style definition
+
+global-reset()
+
+*
+  box-sizing border-box
+
+html, body, #todoapp
+  height 100%
+
+body
+  @extend .defaultFont
+  background-color #FDFBFA
+  font-family "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif
+  font-weight 300
+
+input[type='text']
+  @extend .defaultFont
+  width 100%
+
+  border-width 1px 0
+  border-style solid
+  border-color lightBorderColor
+
+  background-color transparent
+
+  padding (itemPadding/2) itemPadding (itemPadding/2) itemPadding
+  margin 0
+
+  &:focus
+    outline 0
+    border-color highlightBlueColor
+
+
+// Specific style definition
+
+#todoapp
+  height 100%
+  max-width 500px
+  margin auto
+
+  padding-top itemPadding
+  padding-bottom itemPadding
+  box-shadow 0 0 8px rgba(0, 0, 0, 0.15)
+
+  background-color white
+
+header
+  padding-bottom 0.5em
+  #title
+    @extend .headerFont
+    margin itemPadding
+    text-align center
+
+#todo-list .todo-item
+  todoHeight = 26px + itemPadding
+  position relative
+  margin 0
+  height todoHeight
+
+  .complete
+    @extend .uncheckedStyle
+    sideLength = todoHeight - 20px
+    position absolute
+    top 10px
+    left 10px
+    height sideLength
+    width sideLength
+    &:active
+      @extend .checkedStyle
+
+  .text
+    sidePadding = (todoHeight+itemPadding/2)
+    padding-left sidePadding
+    padding-right sidePadding
+    border-color transparent
+    &:focus
+      border-color highlightBlueColor
+
+  .delete
+    sideLength = todoHeight
+    position absolute
+    top 0
+    right 0
+    width sideLength
+    height sideLength
+    border none
+
+    cursor pointer
+
+    background-color transparent
+    font-size 1em
+    color white
+
+    transition 0.1s 0
+    transition-property background-color, color
+    &:hover
+      transition-delay 0.1s
+
+  &:hover .delete
+    color red
+    &:hover
+      background-color red
+      color white
+
+  &.completed
+    .complete
+      @extend .checkedStyle
+      &:active
+        @extend .uncheckedStyle
+    .text
+      color rgba(0, 0, 0, 0.25)
+      text-decoration line-through
+    .delete
+      opacity 0
+      cursor default

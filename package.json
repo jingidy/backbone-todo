@@ -1,0 +1,14 @@
+{
+  "name": "teaser",
+  "version": "0.0.0",
+  "description": "target ohjoy teaser",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Konsult/TargetCork.git"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-stylus": "~0.11.0",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}
