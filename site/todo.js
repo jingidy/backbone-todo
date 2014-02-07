@@ -128,16 +128,25 @@ var AppView = Backbone.View.extend({
 
   addNewItem: function (item) {
     var prev = this.$('#todo-list li:not(.completed)').last();
-    if (!prev.length) this.addOne(item);
+    var view;
+    if (!prev.length) view = this.addItem(item);
     else {
-      var view = new ItemView( { model: item });
+      view = new ItemView( { model: item });
       prev.after(view.render().el);
     }
+
+    setTimeout(function () {
+      view.$('.todo-item').addClass('prep');
+      setTimeout(function () {
+      view.$('.todo-item').removeClass('prep');
+      }, 0);
+    }, 0);
   },
 
   addItem: function (item) {
     var view = new ItemView( { model: item });
     this.$('#todo-list').append(view.render().el);
+    return view;
   },
 
   addAll: function () {

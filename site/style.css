@@ -172,6 +172,25 @@ header #title {
   position: relative;
   margin: 0;
   height: 46px;
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-duration: 0.5s;
+  -o-animation-duration: 0.5s;
+  -ms-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-transition: background-color 0.5s ease-in-out;
+  -moz-transition: background-color 0.5s ease-in-out;
+  -o-transition: background-color 0.5s ease-in-out;
+  -ms-transition: background-color 0.5s ease-in-out;
+  transition: background-color 0.5s ease-in-out;
+  background-color: transparent;
+}
+#todo-list .todo-item.prep {
+  -webkit-transition-duration: 0s;
+  -moz-transition-duration: 0s;
+  -o-transition-duration: 0s;
+  -ms-transition-duration: 0s;
+  transition-duration: 0s;
+  background-color: rgba(255,217,82,0.5);
 }
 #todo-list .todo-item .completeContainer {
   position: absolute;
@@ -205,7 +224,7 @@ header #title {
   cursor: pointer;
   background-color: transparent;
   font-size: 1em;
-  color: #fff;
+  color: transparent;
 }
 #todo-list .todo-item:hover .delete {
   color: #f00;
@@ -229,4 +248,10 @@ header #title {
   -o-transition: height 0.25s ease-out;
   -ms-transition: height 0.25s ease-out;
   transition: height 0.25s ease-out;
+}
+#todo-list .todo-item.deleted .delete,
+#todo-list .todo-item.deleted .completeContainer {
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
 }
