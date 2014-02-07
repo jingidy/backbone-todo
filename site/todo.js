@@ -100,7 +100,7 @@ var AppView = Backbone.View.extend({
 
   addOneIncomplete: function (item) {
     var prev = this.$('#todo-list li:not(.completed)').last();
-    if (!prev) this.addOne(item);
+    if (!prev.length) this.addOne(item);
     else {
       var view = new ItemView( { model: item });
       prev.after(view.render().el);
