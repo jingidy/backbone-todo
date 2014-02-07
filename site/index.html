@@ -28,7 +28,9 @@
     <script type="text/template" id="item-template">
       <div class="view todo-item">
         <div <%= complete ? 'class="completed"' : '' %> >
-          <button class="complete" name="mark as complete"></button>
+          <div class="completeContainer">
+            <button class="complete" name="mark as complete"></button>
+          </div>
           <input class="text" type="text" value="<%- title %>">
           <button class="delete" name="delete">x</button>
         </div>

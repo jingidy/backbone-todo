@@ -11,18 +11,18 @@ header #title {
   line-height: 1em;
 }
 .uncheckedStyle,
-#todo-list .todo-item .complete,
+#todo-list .todo-item .completeContainer .complete,
 #todo-list .todo-item .completed .complete:active {
   background: none;
   border: 1px solid #74d5ff;
 }
 .willCheckStyle,
-#todo-list .todo-item .complete:hover {
+#todo-list .todo-item .completeContainer .complete:hover {
   background-color: rgba(116,213,255,0.15);
   border: 1px solid #74d5ff;
 }
 .checkedStyle,
-#todo-list .todo-item .complete:active,
+#todo-list .todo-item .completeContainer .complete:active,
 #todo-list .todo-item .completed .complete {
   background-color: #74d5ff;
   border: 3px double #fff;
@@ -173,10 +173,16 @@ header #title {
   margin: 0;
   height: 46px;
 }
-#todo-list .todo-item .complete {
+#todo-list .todo-item .completeContainer {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 0;
+  left: 0;
+  width: 46px;
+  height: 46px;
+}
+#todo-list .todo-item .completeContainer .complete {
+  margin-top: 10px;
+  margin-left: 10px;
   height: 26px;
   width: 26px;
   cursor: pointer;

@@ -88,19 +88,24 @@ header
   margin 0
   height todoHeight
 
-  .complete
-    @extend .uncheckedStyle
-    sideLength = todoHeight - 20px
+  .completeContainer
     position absolute
-    top 10px
-    left 10px
-    height sideLength
-    width sideLength
-    cursor pointer
-    &:hover
-      @extend .willCheckStyle
-    &:active
-      @extend .checkedStyle
+    top 0
+    left 0
+    width todoHeight
+    height todoHeight
+    .complete
+      @extend .uncheckedStyle
+      sideLength = todoHeight - 20px
+      margin-top 10px
+      margin-left 10px
+      height sideLength
+      width sideLength
+      cursor pointer
+      &:hover
+        @extend .willCheckStyle
+      &:active
+        @extend .checkedStyle
 
   .text
     sidePadding = (todoHeight+itemPadding/2)
