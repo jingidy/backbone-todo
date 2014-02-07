@@ -129,8 +129,7 @@ a img {
   box-sizing: border-box;
 }
 html,
-body,
-#todoapp {
+body {
   height: 100%;
 }
 body {
@@ -152,7 +151,7 @@ input[type='text']:focus {
   border-color: #74d5ff;
 }
 #todoapp {
-  height: 100%;
+  min-height: 100%;
   max-width: 500px;
   margin: auto;
   padding-top: 20px;
@@ -162,11 +161,20 @@ input[type='text']:focus {
   background-color: #fff;
 }
 header {
-  padding-bottom: 0.5em;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+  z-index: 2;
 }
 header #title {
   margin: 20px;
   text-align: center;
+}
+#main {
+  padding-top: 95px;
+  z-index: 1;
 }
 #todo-list .todo-item {
   position: relative;

@@ -35,7 +35,7 @@ global-reset()
 *
   box-sizing border-box
 
-html, body, #todoapp
+html, body
   height 100%
 
 body
@@ -65,7 +65,7 @@ input[type='text']
 // Specific style definition
 
 #todoapp
-  height 100%
+  min-height 100%
   max-width 500px
   margin auto
 
@@ -76,11 +76,22 @@ input[type='text']
   background-color white
 
 header
-  padding-bottom 0.5em
+  position fixed
+  top 0
+  width 100%
+  max-width 500px
+  background-color white
+
+  z-index 2
+
   #title
     @extend .headerFont
     margin itemPadding
     text-align center
+
+#main
+  padding-top 95px
+  z-index 1
 
 #todo-list .todo-item
   todoHeight = 26px + itemPadding
