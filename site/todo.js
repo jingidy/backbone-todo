@@ -61,6 +61,7 @@ var ItemView = Backbone.View.extend({
     'click .complete': 'toggleComplete',
     'click .delete': 'delete',
     'blur .text': 'save',
+    'keyup .text': 'saveOnEndEdit',
     'focus .text': 'blurIfReadonly'
   },
 
@@ -73,6 +74,7 @@ var ItemView = Backbone.View.extend({
     this.$el.html(this.template(this.model.toJSON()));
     var complete = this.model.get('complete');
     this.$el.toggleClass('completed', complete);
+    
     this.input = this.$('.text');
     if (complete) this.input.attr('readonly', true);
     else this.input.removeAttr('readonly');
@@ -82,6 +84,12 @@ var ItemView = Backbone.View.extend({
   toggleComplete: function () { this.model.toggle(); },
 
   delete: function () { this.model.destroy(); },
+
+  saveOnEndEdit: function (e) {
+    if(e.keyCode !== 13 && e.keyCode !== 27)
+      return;
+    app.resetFocus();
+  },
 
   save: function () {
     value = this.input.val();
@@ -107,11 +115,12 @@ var AppView = Backbone.View.extend({
     items.fetch();
     this.addAll();
 
-    this.listenTo(items,'add', this.addOneIncomplete);
+    this.listenTo(items,'add', this.addNewItem);
     this.listenTo(items, 'reset', this.addAll);
+    this.resetFocus();
   },
 
-  addOneIncomplete: function (item) {
+  addNewItem: function (item) {
     var prev = this.$('#todo-list li:not(.completed)').last();
     if (!prev.length) this.addOne(item);
     else {
@@ -120,13 +129,17 @@ var AppView = Backbone.View.extend({
     }
   },
 
-  addOne: function (item) {
+  addItem: function (item) {
     var view = new ItemView( { model: item });
     this.$('#todo-list').append(view.render().el);
   },
 
   addAll: function () {
-    items.each(this.addOne, this);
+    items.each(this.addItem, this);
+  },
+
+  resetFocus: function () {
+    this.create$.focus();
   },
 
   createOnEnter: function (e) {
@@ -134,6 +147,7 @@ var AppView = Backbone.View.extend({
     if (!this.create$.val()) return;
     items.create({ title: this.create$.val() });
     this.create$.val('');
+    this.resetFocus();
   }
 });
 
