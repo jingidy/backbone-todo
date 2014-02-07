@@ -5,13 +5,18 @@ var Item = Backbone.Model.extend({
   defaults: function () {
     return {
       title: '',
-      created: Date.now(),
+      createDate: Date.now(),
+      completeDate: null,
       complete: false
     };
   },
 
   toggle: function () {
-    this.save({ complete: !this.get('complete') });
+    var newComplete = !this.get('complete');
+    this.save({ 
+      complete: newComplete,
+      completeDate: newComplete ? Date.now() : null,
+    });
   }
 });
 
@@ -19,11 +24,18 @@ var ItemsList = Backbone.Collection.extend({
   model: Item,
   localStorage: new Backbone.LocalStorage('enhanced-backbone-todo'),
   
+  // Sort incomplete on top, otherwise sort by relevant date
   comparator: function (item1, item2) {
     completed1 = item1.get('complete');
     completed2 = item2.get('complete');
     if (completed2 && !completed1) return -1;
     if (completed1 && !completed2) return 1;
+    
+    var dateAttr = completed1 ? 'completeDate' : 'createDate';
+    date1 = item1.get(dateAttr);
+    date2 = item2.get(dateAttr);
+    if (date1 > date2) return -1;
+    if (date2 > date1) return 1;
     return 0;
   },
 
