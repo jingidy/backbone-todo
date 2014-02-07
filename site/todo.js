@@ -24,6 +24,10 @@ var ItemsList = Backbone.Collection.extend({
   model: Item,
   localStorage: new Backbone.LocalStorage('enhanced-backbone-todo'),
   
+  initialize: function () {
+    this.on('change:complete', this.sort);
+  },
+
   // Sort incomplete on top, otherwise sort by relevant date
   comparator: function (item1, item2) {
     completed1 = item1.get('complete');
@@ -57,6 +61,7 @@ var ItemView = Backbone.View.extend({
     'click .complete': 'toggleComplete',
     'click .delete': 'delete',
     'blur .text': 'save',
+    'focus .text': 'blurIfReadonly'
   },
 
   initialize: function () {
@@ -66,8 +71,11 @@ var ItemView = Backbone.View.extend({
 
   render: function () {
     this.$el.html(this.template(this.model.toJSON()));
-    this.$el.toggleClass('completed', this.model.get('complete'));
+    var complete = this.model.get('complete');
+    this.$el.toggleClass('completed', complete);
     this.input = this.$('.text');
+    if (complete) this.input.attr('readonly', true);
+    else this.input.removeAttr('readonly');
     return this;
   },
 
@@ -79,6 +87,11 @@ var ItemView = Backbone.View.extend({
     value = this.input.val();
     if (!value) this.delete();
     else this.model.save({ title: value });
+  },
+
+  blurIfReadonly: function (e) {
+    if (this.input.is('[readonly]')) 
+      this.input.blur();
   },
 });
 

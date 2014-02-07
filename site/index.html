@@ -31,7 +31,7 @@
           <div class="completeContainer">
             <button class="complete" name="mark as complete"></button>
           </div>
-          <input class="text" type="text" value="<%- title %>">
+          <input class="text" type="text" value="<%- title %>" <%= complete ? 'readonly' : '' %> >
           <button class="delete" name="delete">x</button>
         </div>
       </div>
